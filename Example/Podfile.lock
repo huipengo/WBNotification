@@ -1,0 +1,23 @@
+PODS:
+  - ReactiveObjC (3.1.0)
+  - WBNotification (0.1.0)
+
+DEPENDENCIES:
+  - ReactiveObjC (>= 3.1.0)
+  - WBNotification (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - ReactiveObjC
+
+EXTERNAL SOURCES:
+  WBNotification:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
+  WBNotification: aeb7ffcf63c4adf94678d28e432280a51925ed74
+
+PODFILE CHECKSUM: 87f988a7a794a7bde3c4916a9739c1c42645d4c3
+
+COCOAPODS: 1.5.3

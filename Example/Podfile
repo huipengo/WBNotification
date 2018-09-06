@@ -1,0 +1,16 @@
+source 'https://github.com/CocoaPods/specs.git'
+
+platform :ios, '8.0'
+inhibit_all_warnings!
+use_frameworks!
+
+target 'WBNotification_Example' do
+  pod 'WBNotification', :path => '../'
+  pod 'ReactiveObjC', '>= 3.1.0'
+  
+  target 'WBNotification_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

@@ -1,0 +1,6 @@
+framework module WBNotification {
+  umbrella header "WBNotification-umbrella.h"
+
+  export *
+  module * { export * }
+}
