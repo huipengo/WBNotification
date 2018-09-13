@@ -80,6 +80,16 @@ pod 'WBNotification'
 
 </br>
 
+### Push 功能自测：
+1、先打开 `Keychain Access`，点击 `证书`，再选中相应证书(`小三角不要展开`) -> `导出证书` -> 选择 `个人信息交换格式选项(.p12)` 保存；
+
+2、在终端 `cd *.p12` 所在目录文件，然后输入以下命令生成 `*.pem` 文件；
+> openssl pkcs12 -in ck.p12 -out ck.pem -nodes
+
+3、拷贝 `ck.pem` 文件到 `Demo` 中的 `Push_Beta` 文件夹，并在 `Push_Beta.php` 做相应修改（`替换生成*.pem文件时的密码，device token，推送内容等`）；
+
+4、在终端执行命令：`cd 到 Push_Beta` 文件夹，再执行 `php Push_Beta.php` 即可验证生成的 `push 证书是否有效` 以及 `项目中推送功能` 是否正常；
+
 ---
 * 具体使用可查看Demo，若喜欢请Star，谢谢~~~
 
