@@ -93,9 +93,7 @@ pod 'WBNotification'
 ---
 * 具体使用可查看Demo，若喜欢请Star，谢谢~~~
 
-## Author
-
-彭辉, penghui_only@163.com
+简书地址：[https://www.jianshu.com/p/adac65fbd299](https://www.jianshu.com/p/adac65fbd299)
 
 ## License
 
