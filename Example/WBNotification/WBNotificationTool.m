@@ -53,6 +53,11 @@ void wb_notificationMessageAction(NSDictionary *userInfo) {
     /// push notification action
 }
 
+/** iOS9 点击推送通知执行此方法 */
+void wb_applicationDidReceiveRemoteNotification(UIApplication *application, NSDictionary *userInfo) {
+    [WBNotification.notification wb_didReceiveRemoteNotification:userInfo];
+}
+
 void wb_saveNotificationDeviceToken(NSData *deviceToken) {
     NSString *token = wb_deviceToken(deviceToken);
     if (token && token.length > 0) {

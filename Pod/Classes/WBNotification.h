@@ -56,6 +56,8 @@ typedef void(^WBReceiveLocalNotificationCompletion)(NSDictionary *__nullable use
  */
 + (void)authorizationNotification:(void(^)(BOOL authorization))completion;
 
+- (void)wb_didReceiveRemoteNotification:(NSDictionary *)userInfo;
+
 @end
 
 @interface WBNotification (Tools)

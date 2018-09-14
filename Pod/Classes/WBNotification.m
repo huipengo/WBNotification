@@ -81,41 +81,41 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler {
-    [self customDidReceiveRemoteNotification:userInfo];
+    [self wb_didReceiveRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNoData);
 }
 
 #pragma mark -- UNUserNotificationCenterDelegate
-/// iOS10新增：处理前台收到通知的代理方法
+/** iOS10新增：处理前台收到通知的代理方法 */
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler __IOS_AVAILABLE(10.0) __TVOS_AVAILABLE(10.0) __WATCHOS_AVAILABLE(3.0) {
-    [self customUserNotificationReceiveNotification:notification];
+    [self wb_userNotificationReceiveNotification:notification];
     completionHandler(UNNotificationPresentationOptionSound);
 }
 
-/// iOS10新增：处理后台点击通知的代理方法
+/** iOS10新增：处理后台点击通知的代理方法 */
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)(void))completionHandler __IOS_AVAILABLE(10.0) __WATCHOS_AVAILABLE(3.0) __TVOS_PROHIBITED {
-    [self customUserNotificationReceiveNotification:response.notification];
+    [self wb_userNotificationReceiveNotification:response.notification];
     completionHandler();
 }
 
-/// 自定义处理推送接收通知方法
-- (void)customUserNotificationReceiveNotification:(UNNotification *)notification __IOS_AVAILABLE(10.0) {
+/** 自定义处理推送接收通知方法 */
+- (void)wb_userNotificationReceiveNotification:(UNNotification *)notification __IOS_AVAILABLE(10.0) {
     NSDictionary *userInfo = notification.request.content.userInfo;
     if ([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
-        /// 远程推送接受
-        [self customDidReceiveRemoteNotification:userInfo];
+        /** 远程推送接受 */
+        [self wb_didReceiveRemoteNotification:userInfo];
     }
     else {
-        /// 本地推送接受
-        [self customDidReceiveLocalNotification:userInfo];
+        /** 本地推送接受 */
+        [self wb_didReceiveLocalNotification:userInfo];
     }
 }
 
-- (void)customDidReceiveRemoteNotification:(NSDictionary *)userInfo {
+- (void)wb_didReceiveRemoteNotification:(NSDictionary *)userInfo {
     !self.remoteNotificationCompletion?:self.remoteNotificationCompletion(userInfo, UIApplication.sharedApplication.applicationState);
 }
 
-- (void)customDidReceiveLocalNotification:(NSDictionary *)userInfo {
+- (void)wb_didReceiveLocalNotification:(NSDictionary *)userInfo {
     !self.localNotificationCompletion?:self.localNotificationCompletion(userInfo, UIApplication.sharedApplication.applicationState);
 }
 
@@ -123,7 +123,7 @@
 
 @implementation WBNotification (Tools)
 
-/// 转化设备Token
+/** 转化设备Token */
 NSString * _Nullable wb_deviceToken(NSData * _Nullable deviceToken) {
     NSString *token = [deviceToken description];
     if ([token containsString:@">"]) {

@@ -28,6 +28,11 @@
     return YES;
 }
 
+/** iOS9 点击推送通知执行此方法 */
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    wb_applicationDidReceiveRemoteNotification(application, userInfo);
+}
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     wb_saveNotificationDeviceToken(deviceToken);
 }
