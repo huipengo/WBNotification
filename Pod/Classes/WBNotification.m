@@ -1,6 +1,6 @@
 //
 //  WBNotification.m
-//  WBKit_Example
+//  huipeng
 //
 //  Created by penghui8 on 2018/3/22.
 //  Copyright © 2018年 huipengo. All rights reserved.
@@ -13,6 +13,14 @@
 @end
 
 @implementation WBNotification
+
++ (void)load {
+    [WBNotification wb_addNotificationCenterObserver];
+}
+
+- (void)dealloc {
+    [WBNotification wb_removeNotificationCenterObserver];
+}
 
 + (instancetype _Nonnull )notification {
     static id _sharedInstance = nil;
@@ -119,6 +127,31 @@
     !self.localNotificationCompletion?:self.localNotificationCompletion(userInfo, UIApplication.sharedApplication.applicationState);
 }
 
+#pragma mark --
++ (void)wb_addNotificationCenterObserver {
+    [NSNotificationCenter.defaultCenter addObserver:WBNotification.notification selector:@selector(wb_appWillResignActive) name:UIApplicationWillResignActiveNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:WBNotification.notification selector:@selector(wb_appDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:WBNotification.notification selector:@selector(wb_appWillTerminate) name:UIApplicationWillTerminateNotification object:nil];
+}
+
++ (void)wb_removeNotificationCenterObserver {
+    [NSNotificationCenter.defaultCenter removeObserver:WBNotification.notification];
+}
+
+- (void)wb_appWillResignActive {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        wb_execLocalNofitication(0);
+    });
+}
+
+- (void)wb_appDidEnterBackground {
+    [WBNotification.notification didLaunchingWithOptions:nil];
+}
+
+- (void)wb_appWillTerminate {
+    wb_execLocalNofitication(1);
+}
+
 @end
 
 @implementation WBNotification (Tools)
@@ -139,16 +172,19 @@ NSString * _Nullable wb_deviceToken(NSData * _Nullable deviceToken) {
     return token;
 }
 
-void wb_execLocalNofitication(NSInteger sinceTime) {
+void wb_execLocalNofitication(NSTimeInterval timeInterval) {
     if ([UIApplication sharedApplication].applicationIconBadgeNumber > 0) {
-        UILocalNotification *notification = [[UILocalNotification alloc] init];
-        if (notification) {
-            NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:sinceTime];
+        if (@available(iOS 11.0, *)) {
+            [UIApplication sharedApplication].applicationIconBadgeNumber = -1;
+        }
+        else {
+            UILocalNotification *notification = [[UILocalNotification alloc] init];
+            NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:timeInterval];
             notification.fireDate = fireDate;
             notification.timeZone = [NSTimeZone defaultTimeZone];
             notification.repeatInterval = 0;
             notification.alertBody = nil;
-            notification.applicationIconBadgeNumber = -99;
+            notification.applicationIconBadgeNumber = -1;
             notification.soundName = nil;
             [[UIApplication sharedApplication] scheduleLocalNotification:notification];
         }

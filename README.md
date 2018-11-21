@@ -90,6 +90,8 @@ pod 'WBNotification'
 
 4、在终端执行命令：`cd 到 Push_Beta` 文件夹，再执行 `php Push_Beta.php` 即可验证生成的 `push 证书是否有效` 以及 `项目中推送功能` 是否正常；
 
+> 推荐一个好用的工具 `Easy APNs Provider` 直接测试 push ，可到 `AppStore` 进行下载
+
 ---
 * 具体使用可查看Demo，若喜欢请Star，谢谢~~~
 

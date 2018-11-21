@@ -1,6 +1,6 @@
 //
 //  WBNotification.h
-//  WBKit_Example
+//  huipeng
 //
 //  Created by penghui8 on 2018/3/22.
 //  Copyright © 2018年 huipengo. All rights reserved.
@@ -32,7 +32,7 @@ typedef void(^WBReceiveLocalNotificationCompletion)(NSDictionary *__nullable use
 /// 接受本地通知
 @property (nonatomic, copy) WBReceiveLocalNotificationCompletion _Nullable localNotificationCompletion;
 
-+ (instancetype _Nonnull )notification;
++ (instancetype _Nonnull)notification;
 
 - (instancetype _Nonnull)init NS_UNAVAILABLE;
 + (instancetype _Nonnull)new NS_UNAVAILABLE;
@@ -73,9 +73,9 @@ NSString * _Nullable wb_deviceToken(NSData * _Nullable deviceToken);
 /**
  用一个空的本地推送解决角标为0，通知栏消息全部消除的问题，APP进入前台以及进入后台都进行判断
 
- @param sinceTime 执行时间
+ @param timeInterval 执行时间
  */
-void wb_execLocalNofitication(NSInteger sinceTime);
+void wb_execLocalNofitication(NSTimeInterval timeInterval);
 
 /**
  打开APP系统设置
