@@ -1,6 +1,6 @@
 //
 //  WBNotification.m
-//  huipeng
+//  WBKit_Example
 //
 //  Created by penghui8 on 2018/3/22.
 //  Copyright © 2018年 huipengo. All rights reserved.
@@ -158,18 +158,17 @@
 
 /** 转化设备Token */
 NSString * _Nullable wb_deviceToken(NSData * _Nullable deviceToken) {
-    NSString *token = [deviceToken description];
-    if ([token containsString:@">"]) {
-        token = [token stringByReplacingOccurrencesOfString:@">" withString:@""];
-    }
-    if ([token containsString:@"<"]) {
-        token = [token stringByReplacingOccurrencesOfString:@"<" withString:@""];
-    }
-    if ([token containsString:@" "]) {
-        token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    if (![deviceToken isKindOfClass:[NSData class]]) return nil;
+    
+    NSMutableString *hexToken = [NSMutableString string];
+    const char *bytes = deviceToken.bytes;
+    NSInteger count = deviceToken.length;
+    for (NSInteger i = 0; i < count; i++) {
+        [hexToken appendFormat:@"%02x", bytes[i]&0x000000FF];
     }
     
-    return token;
+    return hexToken;
 }
 
 void wb_execLocalNofitication(NSTimeInterval timeInterval) {

@@ -1,6 +1,6 @@
 //
 //  WBNotification.h
-//  huipeng
+//  WBKit_Example
 //
 //  Created by penghui8 on 2018/3/22.
 //  Copyright © 2018年 huipengo. All rights reserved.
@@ -54,9 +54,9 @@ typedef void(^WBReceiveLocalNotificationCompletion)(NSDictionary *__nullable use
  
  @param completion 回调
  */
-+ (void)authorizationNotification:(void(^)(BOOL authorization))completion;
++ (void)authorizationNotification:(void(^ _Nullable)(BOOL authorization))completion;
 
-- (void)wb_didReceiveRemoteNotification:(NSDictionary *)userInfo;
+- (void)wb_didReceiveRemoteNotification:(NSDictionary * _Nullable)userInfo;
 
 @end
 
